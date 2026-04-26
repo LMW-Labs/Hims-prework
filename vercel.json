@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/agenda", "dest": "/agenda.html" },
+    { "src": "/rationale", "dest": "/rationale.html" },
+    { "src": "/", "dest": "/index.html" }
+  ]
+}

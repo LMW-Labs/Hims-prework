@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIMS — Why Each Point Matters</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #0A0E1A;
+    --surface: #111827;
+    --card:    #161D2F;
+    --border:  #1E2A42;
+    --gold:    #B8962E;
+    --gold-lt: #D4AF51;
+    --gold-dim:#7A6220;
+    --white:   #F0F2F8;
+    --muted:   #6B7A99;
+    --red:     #DC2626;
+    --green:   #16A34A;
+    --amber:   #D97706;
+    --accent:  #3B82F6;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.35;
+  }
+
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* HEADER */
+  header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand { display: flex; align-items: center; gap: 1rem; }
+
+  .shield {
+    width: 44px; height: 52px;
+    background: var(--gold);
+    clip-path: polygon(50% 0%, 100% 15%, 100% 60%, 50% 100%, 0% 60%, 0% 15%);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .shield-inner {
+    width: 22px; height: 26px;
+    background: var(--bg);
+    clip-path: polygon(50% 0%, 100% 15%, 100% 60%, 50% 100%, 0% 60%, 0% 15%);
+  }
+
+  .brand-text h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .brand-text p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 3px;
+  }
+
+  .meta {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .meta strong { color: var(--gold-lt); }
+
+  /* TITLE */
+  .title-block {
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .title-block h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 3px;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .title-block h2 span { color: var(--gold); }
+  .gold-line { width: 70px; height: 3px; background: linear-gradient(90deg, var(--gold), transparent); margin: 0.8rem 0; }
+  .title-block p { color: var(--muted); font-style: italic; font-size: 1.05rem; }
+
+  /* INTRO CALLOUT */
+  .intro-callout {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    animation: fadeUp 0.5s ease 0.1s both;
+  }
+  .intro-callout strong { color: var(--gold-lt); font-style: normal; }
+
+  /* CARDS */
+  .card {
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    animation: fadeUp 0.45s ease both;
+  }
+
+  .card:nth-child(1)  { animation-delay: 0.12s; }
+  .card:nth-child(2)  { animation-delay: 0.18s; }
+  .card:nth-child(3)  { animation-delay: 0.24s; }
+  .card:nth-child(4)  { animation-delay: 0.30s; }
+  .card:nth-child(5)  { animation-delay: 0.36s; }
+  .card:nth-child(6)  { animation-delay: 0.42s; }
+  .card:nth-child(7)  { animation-delay: 0.48s; }
+  .card:nth-child(8)  { animation-delay: 0.54s; }
+  .card:nth-child(9)  { animation-delay: 0.60s; }
+  .card:nth-child(10) { animation-delay: 0.66s; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.3rem;
+    background: var(--card);
+    cursor: pointer;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .card-header:hover { background: var(--surface); }
+
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    min-width: 34px;
+    letter-spacing: 1px;
+  }
+
+  .card-label { flex: 1; }
+  .card-label h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .card-label .sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 1px;
+  }
+
+  .risk-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+  .risk-critical { background: rgba(220,38,38,0.15); color: var(--red); border: 1px solid rgba(220,38,38,0.3); }
+  .risk-high     { background: rgba(217,119,6,0.15);  color: var(--amber); border: 1px solid rgba(217,119,6,0.3); }
+  .risk-medium   { background: rgba(59,130,246,0.12); color: var(--accent); border: 1px solid rgba(59,130,246,0.25); }
+
+  .chevron { color: var(--muted); font-size: 0.75rem; transition: transform 0.25s; flex-shrink: 0; }
+  .card.open .chevron { transform: rotate(180deg); }
+
+  .card-body {
+    background: var(--surface);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.38s ease, padding 0.25s ease;
+    padding: 0 1.5rem;
+  }
+  .card.open .card-body { max-height: 900px; padding: 1.4rem 1.5rem; }
+
+  .reasons { list-style: none; margin-bottom: 1rem; }
+  .reasons li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1rem;
+    color: var(--white);
+  }
+  .reasons li:last-child { border-bottom: none; }
+
+  .r-icon { 
+    flex-shrink: 0; 
+    margin-top: 3px; 
+    font-size: 0.9rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  .scenario {
+    margin-top: 1rem;
+    padding: 1rem 1.1rem;
+    background: rgba(184,150,46,0.07);
+    border-left: 3px solid var(--gold-dim);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .scenario strong { color: var(--gold-lt); display: block; font-size: 0.78rem; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-style: normal; }
+  .scenario em { font-style: italic; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    animation: fadeUp 0.5s ease 0.8s both;
+  }
+
+  .footer-card {
+    padding: 1.2rem 1.3rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .footer-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .footer-card p { font-size: 0.92rem; color: var(--muted); font-style: italic; }
+
+  .print-btn {
+    display: block;
+    margin: 2rem auto 0;
+    padding: 0.7rem 2.5rem;
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    border-radius: 4px;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .print-btn:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media print {
+    body { background: white; color: #111; }
+    body::before { display: none; }
+    .card-body { max-height: none !important; padding: 1rem 1.5rem !important; }
+    .print-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <div class="shield"><div class="shield-inner"></div></div>
+      <div class="brand-text">
+        <h1>HIMS</h1>
+        <p>Why Each Point Matters</p>
+      </div>
+    </div>
+    <div class="meta">
+      <strong>PRIVATE &amp; CONFIDENTIAL</strong><br>
+      Pre-Partnership Rationale<br>
+      Read before the meeting
+    </div>
+  </header>
+
+  <div class="title-block">
+    <h2>Know <span>Why</span> Before You Sign</h2>
+    <div class="gold-line"></div>
+    <p>Every point on the agenda exists for a reason. This is what's at stake if you skip any of them.</p>
+  </div>
+
+  <div class="intro-callout">
+    Chris is a friend. That is exactly why this matters. <strong>Friendships survive clear agreements. They rarely survive unclear ones.</strong> The goal isn't to protect yourself from him — it's to make sure neither of you is ever in a position where the friendship is what's at risk.
+  </div>
+
+  <div id="cards">
+
+    <!-- 01 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">01</span>
+        <div class="card-label">
+          <h3>Define the Assets</h3>
+          <div class="sub">Platform vs Agency vs Both</div>
+        </div>
+        <span class="risk-badge risk-critical">Critical</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">⚠️</span>Without a clear definition, "the platform" means something different to each of you. That ambiguity becomes a dispute the moment money is involved.</li>
+          <li><span class="r-icon">⚠️</span>The agency can exist without the platform. The platform can be licensed to others without the agency. If these aren't separated, one can drag the other into a situation neither of you intended.</li>
+          <li><span class="r-icon">⚠️</span>If HIMS the agency gets acquired or sold, is the platform included? Without a definition, the answer is whatever a lawyer argues — not what you both meant.</li>
+          <li><span class="r-icon">⚠️</span>The data is a third asset entirely. Player relationship data has independent value. Who owns it if the partnership ends?</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>Chris gets an offer to sell HIMS the brand. You believe that includes the platform you built. He believes the platform is separate. You're now in a dispute with a friend over something that could have been one sentence in an agreement.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">02</span>
+        <div class="card-label">
+          <h3>Equity</h3>
+          <div class="sub">Percentage, Scope, Vesting, Triggers</div>
+        </div>
+        <span class="risk-badge risk-critical">Critical</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">💰</span>A verbal equity agreement is worth nothing legally. It needs to be in writing with a specific number before any deal closes or revenue is generated.</li>
+          <li><span class="r-icon">💰</span>Without vesting terms, your equity is at full risk on day one. If the partnership ends in 60 days, do you keep the full percentage? A vesting schedule protects both of you.</li>
+          <li><span class="r-icon">💰</span>"Small percentage" is not a number. 5%, 10%, 15% — each has a different implication at a $500K valuation vs a $5M one. Name the number tonight.</li>
+          <li><span class="r-icon">💰</span>If no revenue event triggers are defined, equity is theoretical. What actually converts your stake into money — monthly revenue share, a licensing deal, an acquisition? Define it or it doesn't exist.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>The platform generates its first licensing deal at $150K. You both remember the equity conversation differently. There's no document. The friendship is now a legal problem.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">03</span>
+        <div class="card-label">
+          <h3>Past Hours</h3>
+          <div class="sub">$750+ already logged — needs resolution</div>
+        </div>
+        <span class="risk-badge risk-high">High</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">🕐</span>Hours worked before a formal agreement exists are the most commonly disputed item in creative and tech partnerships. Resolve them tonight or they become resentment later.</li>
+          <li><span class="r-icon">🕐</span>If you defer and convert to equity, you need to agree on a valuation method right now — otherwise the conversion is arbitrary.</li>
+          <li><span class="r-icon">🕐</span>The platform build hours across all phases are substantial. The number needs to be documented even if payment is deferred. Undocumented work has no legal standing.</li>
+          <li><span class="r-icon">🕐</span>Leaving past hours unresolved creates an imbalance at the start of the partnership. Clean it up now so you both start even.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>Six months in, a disagreement surfaces. You feel undercompensated for early work. He feels blindsided by a number he didn't know was accumulating. Neither of you is wrong — the agreement was just incomplete.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">04</span>
+        <div class="card-label">
+          <h3>Going Forward — Billing</h3>
+          <div class="sub">Rate, schedule, payment terms</div>
+        </div>
+        <span class="risk-badge risk-high">High</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">📋</span>Without a defined rate, every invoice is a negotiation. That creates friction and awkwardness in a friendship every single month.</li>
+          <li><span class="r-icon">📋</span>"Partner discount" needs a number — not a concept. If the discount is 25%, say 25%. Vague discounts lead to different expectations.</li>
+          <li><span class="r-icon">📋</span>Payment terms protect your cash flow. Net 30 unpaid becomes net 60 becomes "I'll get you next month" if there's no written term to reference.</li>
+          <li><span class="r-icon">📋</span>You have other income streams and products. Knowing exactly what HIMS pays and when lets you plan your own finances around it.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>You send an invoice. He's short on cash that month. There's no agreed term so there's no leverage — just an awkward conversation with a friend who owes you money.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">05</span>
+        <div class="card-label">
+          <h3>Your Role</h3>
+          <div class="sub">Title, scope, exclusivity</div>
+        </div>
+        <span class="risk-badge risk-high">High</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">🎯</span>Without a defined scope, anyone can approach Chris with a tech idea and he can say yes without realizing he's stepping on your role or creating work you'll have to undo.</li>
+          <li><span class="r-icon">🎯</span>Exclusivity protects the integrity of the platform. If another developer touches the codebase without your oversight, you're responsible for code you didn't write.</li>
+          <li><span class="r-icon">🎯</span>Your title matters for credibility — especially when HIMS starts presenting to programs, brands, and potential investors. "Technical Partner" carries weight. "Guy who built the website" does not.</li>
+          <li><span class="r-icon">🎯</span>Scope clarity lets you say no when necessary. Without it, every new idea from Chris becomes your obligation regardless of what's already on your plate.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>Chris meets someone at an event who offers to build "a quick feature." That person introduces security vulnerabilities, breaks existing functionality, and you're the one who has to fix it — for free, because you have no written authority to prevent it.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">06</span>
+        <div class="card-label">
+          <h3>IP Ownership</h3>
+          <div class="sub">Codebase, data, joint asset rules</div>
+        </div>
+        <span class="risk-badge risk-critical">Critical</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">🔐</span>Without IP terms, a court will decide who owns the codebase based on who paid for it. If Chris ever paid an invoice, a court could argue he owns the work product.</li>
+          <li><span class="r-icon">🔐</span>The codebase has independent value beyond HIMS. You built something that could be adapted for other sports agencies, other verticals. Protecting your ownership protects that future optionality.</li>
+          <li><span class="r-icon">🔐</span>Chris's relationship data has value that depreciates without the platform to house it. His data and your code are only worth something together — that interdependence needs to be acknowledged in writing.</li>
+          <li><span class="r-icon">🔐</span>Neither of you should be able to license or sell the platform without the other's consent. Without this clause, one party can make a unilateral decision that permanently affects the other.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>A larger agency approaches Chris wanting to license the platform for $80K. He says yes. You find out after the fact. There's no agreement that required your consent. You have no recourse.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">07</span>
+        <div class="card-label">
+          <h3>If Things Go Wrong</h3>
+          <div class="sub">Dissolution, wind-down, asset split</div>
+        </div>
+        <span class="risk-badge risk-critical">Critical</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">🛡️</span>This is the most important clause precisely because you're friends. Business disputes between friends without exit terms are the ones that end friendships permanently.</li>
+          <li><span class="r-icon">🛡️</span>Defining the split now — codebase to you, data and relationships to him — removes all ambiguity when emotions are running high. You can't negotiate this fairly in the middle of a dispute.</li>
+          <li><span class="r-icon">🛡️</span>A wind-down clause gives both parties a clear timeline and process. Without it, one party can simply stop responding and leave the other legally stuck with shared assets.</li>
+          <li><span class="r-icon">🛡️</span>This clause actually reduces the likelihood of a bad outcome. When both parties know the exit is fair and defined, they're less likely to feel trapped and more likely to communicate honestly when problems arise.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>A disagreement over a deal decision escalates. Neither of you wants to be the one to "end it." The platform sits idle, neither of you can use it independently, and the friendship slowly erodes while the asset decays. A 60-day wind-down clause would have resolved this cleanly.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">08</span>
+        <div class="card-label">
+          <h3>Decision Authority</h3>
+          <div class="sub">Who owns what calls</div>
+        </div>
+        <span class="risk-badge risk-medium">Medium</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">⚖️</span>Without defined authority, every decision becomes a negotiation. That slows everything down and creates resentment when one person consistently feels overruled.</li>
+          <li><span class="r-icon">⚖️</span>Tech decisions need to be yours without requiring approval. If Chris has to sign off on every architecture choice, the build slows to the pace of his availability.</li>
+          <li><span class="r-icon">⚖️</span>Business decisions — which players to represent, which programs to target, deal terms — need to be his domain. You're the tech partner, not the agent. Scope creep in either direction creates conflict.</li>
+          <li><span class="r-icon">⚖️</span>Decisions that touch both require agreement. Defining this category now prevents either party from making a unilateral call on something that affects the other.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>Chris wants to add a feature you know is technically wrong for the architecture. Without defined authority, it becomes an argument between friends instead of a clear decision within your domain.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">09</span>
+        <div class="card-label">
+          <h3>Confidentiality</h3>
+          <div class="sub">Player data, deal intel, platform details</div>
+        </div>
+        <span class="risk-badge risk-high">High</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">🔒</span>The platform contains sensitive personal data about players — life events, family struggles, deal status. Without a confidentiality clause, there's no legal basis to enforce privacy if something leaks.</li>
+          <li><span class="r-icon">🔒</span>If Chris's deal intel — who's interested in which player, at what terms — gets out, it destroys his competitive edge. The platform's value depends on that data staying private.</li>
+          <li><span class="r-icon">🔒</span>You have access to everything in the platform. A confidentiality agreement protects Chris from your inadvertent disclosure as much as it protects you from his.</li>
+          <li><span class="r-icon">🔒</span>As the platform grows and more sensitive data accumulates, the absence of a confidentiality agreement becomes a legal liability — not just a business risk.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>You mention a player's pipeline status to someone in passing. That person is connected to a competing agent. The player finds out and pulls from HIMS. Without a confidentiality clause, Chris has no legal recourse and your partnership trust is damaged.</em>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card">
+      <div class="card-header" onclick="toggle(this)">
+        <span class="card-num">10</span>
+        <div class="card-label">
+          <h3>Next Steps After Tonight</h3>
+          <div class="sub">Attorney review, contract, billing start</div>
+        </div>
+        <span class="risk-badge risk-medium">Medium</span>
+        <span class="chevron">▼</span>
+      </div>
+      <div class="card-body">
+        <ul class="reasons">
+          <li><span class="r-icon">📝</span>A handshake agreement after tonight is better than nothing — but it's still not enough. An attorney turns what you agreed on into language that holds up. Skip this and you're relying on memory and goodwill.</li>
+          <li><span class="r-icon">📝</span>Setting the invoicing start date tonight closes the gap between "we agreed on billing" and "billing actually begins." Every week without a start date is a week of unbilled work.</li>
+          <li><span class="r-icon">📝</span>Resolving past hours tonight — not "we'll figure it out" — creates a clean starting line. The longer it sits, the harder it is to address without awkwardness.</li>
+          <li><span class="r-icon">📝</span>The platform is live and being used. The longer you operate without a formal agreement, the more precedent gets set by behavior instead of contract. That precedent is harder to change later.</li>
+        </ul>
+        <div class="scenario">
+          <strong>What goes wrong without it</strong>
+          <em>"We'll get the contract done next week" becomes next month. The platform is generating activity. Deals are moving. You're both operating on a verbal agreement that neither of you can fully remember. Every good partnership deserves a clean foundation.</em>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-card">
+      <h4>The Bottom Line</h4>
+      <p>You're not doing this because you don't trust Chris. You're doing this because trust is exactly what a good agreement protects. Clear terms let you both move fast, disagree without it getting personal, and build something worth building.</p>
+    </div>
+    <div class="footer-card">
+      <h4>After Tonight</h4>
+      <p>Agreed points go to an attorney. Not a template — a real attorney who understands IP and tech partnerships. The cost is a few hundred dollars. The alternative is a dispute that costs far more than that and potentially a friendship.</p>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+
+</div>
+
+<script>
+  function toggle(header) {
+    const card = header.closest('.card');
+    card.classList.toggle('open');
+  }
+
+  // Open first card by default
+  document.querySelector('.card').classList.add('open');
+</script>
+</body>
+</html>
